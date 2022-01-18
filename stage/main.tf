@@ -39,10 +39,17 @@ module "server" {
     /* 공통 */
     access_control_group_no = module.acg.acg_access_control_group_no
     login-key               = "loginkey"
+    init-script-id          = module.init_script.init
+}
+module "init_script" {
+    source              = "../complete-module/modules/init_script"
+
+    script-name         = "init-script"
 }
 module "lb" {
     source              = "../complete-module/modules/lb"
 
+    /* target group 생성 정보 */
     tg-name             = "stg-tg"
     vpc-id              = module.vpc.lg_vpc_id
     svr-instance-no     = [
@@ -51,5 +58,17 @@ module "lb" {
         module.server.az2_server[0].instance_no,
         module.server.az2_server[1].instance_no,
     ]
+
+    /* LB 생성 정보 */
+    lb-name             = "stg-vpc-lb"
+
+    lb-subnet           = [module.vpc.lb_subnet1_no, module.vpc.lb_subnet2_no]
+
+}
+
+module "public_ip" {
+    source              = "../complete-module/modules/public_ip"
+
+    svr-instance-no     = module.server.az1_server[0].instance_no
 }
 

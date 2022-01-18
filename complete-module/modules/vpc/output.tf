@@ -11,9 +11,9 @@ output "lg_public_subnet1" {
 output "lg_public_subnet2" {
     value = ncloud_subnet.lg_public_subnet2.id
 }
-output "lb_prviate_subnet1" {
-    value = ncloud_subnet.lb_private_subnet1.id
+output "lb_subnet1_no" {
+    value = ncloud_subnet.lb_private_subnet1.subnet_no
 }
-output "lb_prviate_subnet2" {
-    value = ncloud_subnet.lb_private_subnet2.id
+output "lb_subnet2_no" {
+    value = ncloud_subnet.lb_private_subnet2.subnet_no
 }

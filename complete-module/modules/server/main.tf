@@ -18,6 +18,7 @@ resource "ncloud_server" "az1_server" {
     subnet_no                   = var.subnet1-id
     server_image_product_code   = "SW.VSVR.OS.LNX64.CNTOS.0703.B050"
     login_key_name              = ncloud_login_key.lg_loginkey.key_name
+    init_script_no              = var.init-script-id
 
     network_interface {
         network_interface_no    = ncloud_network_interface.az1_server_nic[count.index].id
@@ -40,6 +41,7 @@ resource "ncloud_server" "az2_server" {
     subnet_no                   = var.subnet2-id
     server_image_product_code   = "SW.VSVR.OS.LNX64.CNTOS.0703.B050"
     login_key_name              = ncloud_login_key.lg_loginkey.key_name
+    init_script_no              = var.init-script-id
 
     network_interface {
         network_interface_no    = ncloud_network_interface.az2_server_nic[count.index].id

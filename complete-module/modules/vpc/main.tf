@@ -43,6 +43,14 @@ resource "ncloud_network_acl_rule" "lg_nacl_rule" {
         ip_block    = var.source-ip
         port_range  = "22"
     }
+    
+    inbound {
+        priority    = 3
+        protocol    = "TCP"
+        rule_action = "ALLOW"
+        ip_block    = "219.250.86.219/32" /* 로컬 PC 접속 IP */
+        port_range  = "22"
+    }
 
     inbound {
         priority    = 197

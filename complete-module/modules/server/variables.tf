@@ -34,3 +34,7 @@ variable "login-key" {
     description = "login key for connect server"
     type    = string
 }
+variable "init-script-id" {
+    description = "Return init script id after init_script module create init"
+    type    = string
+}
