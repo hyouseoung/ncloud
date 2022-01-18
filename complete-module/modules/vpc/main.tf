@@ -77,11 +77,20 @@ resource "ncloud_network_acl_rule" "lg_nacl_rule" {
     
 }
 
-resource "ncloud_subnet" "lg_public_subnet" {
-    name            = var.public-subnet-name
+resource "ncloud_subnet" "lg_public_subnet1" {
+    name            = var.public-subnet-name[0]
     vpc_no          = ncloud_vpc.lg_vpc.id
-    subnet          = var.public-subnet-cider
-    zone            = var.zone
+    subnet          = var.public-subnet-cider[0]
+    zone            = var.public-zone[0]
+    network_acl_no  = ncloud_network_acl.lg_nacl.id
+    subnet_type     = "PUBLIC"
+}
+
+resource "ncloud_subnet" "lg_public_subnet2" {
+    name            = var.public-subnet-name[1]
+    vpc_no          = ncloud_vpc.lg_vpc.id
+    subnet          = var.public-subnet-cider[1]
+    zone            = var.public-zone[1]
     network_acl_no  = ncloud_network_acl.lg_nacl.id
     subnet_type     = "PUBLIC"
 }

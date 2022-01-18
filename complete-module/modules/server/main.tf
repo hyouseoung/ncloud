@@ -12,7 +12,8 @@ resource "ncloud_login_key" "lg_loginkey" {
 }
 
 resource "ncloud_server" "az1_server" {
-    count                       = var.cnt1
+    /* 입력 받은 IP 수량 만큼 서버 생성 하기 위해 count 변수 추가 */
+    count                       = length(var.private-ip1)
     name                        = "${var.server-name1}${count.index+1}"
     subnet_no                   = var.subnet1-id
     server_image_product_code   = "SW.VSVR.OS.LNX64.CNTOS.0703.B050"
@@ -25,7 +26,7 @@ resource "ncloud_server" "az1_server" {
 }
 
 resource "ncloud_network_interface" "az1_server_nic" {
-    count                       = var.cnt1
+    count                       = length(var.private-ip1)
     name                        = "${var.server-name1}${count.index+1}-nic"
     subnet_no                   = var.subnet1-id
     private_ip                  = var.private-ip1[count.index]
@@ -33,7 +34,8 @@ resource "ncloud_network_interface" "az1_server_nic" {
 }
 
 resource "ncloud_server" "az2_server" {
-    count                       = var.cnt2
+    /* 입력 받은 IP 수량 만큼 서버 생성 하기 위해 count 변수 추가 */
+    count                       = length(var.private-ip2)
     name                        = "${var.server-name2}${count.index+1}"
     subnet_no                   = var.subnet2-id
     server_image_product_code   = "SW.VSVR.OS.LNX64.CNTOS.0703.B050"
@@ -46,7 +48,7 @@ resource "ncloud_server" "az2_server" {
 }
 
 resource "ncloud_network_interface" "az2_server_nic" {
-    count                       = var.cnt2
+    count                       = length(var.private-ip2)
     name                        = "${var.server-name2}${count.index+1}-nic"
     subnet_no                   = var.subnet2-id
     private_ip                  = var.private-ip2[count.index]

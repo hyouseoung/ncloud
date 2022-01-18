@@ -10,14 +10,6 @@ variable "server-name2" {
     description = "Set KR2 Zone Server Name"
     type    = string
 }
-variable "cnt1" {
-    description = "Create KR1 Zone server resource number"
-    type    = string
-}
-variable "cnt2" {
-    description = "Create KR2 Zone server resource number"
-    type    = string
-}
 variable "subnet1-id" {
     description = "vpc module create KR1 subnet and return subnet id"
     type    = string

@@ -5,9 +5,9 @@ module "vpc" {
     vpc-name            = "stg-vpc"
     vpc-cider           = "10.0.0.0/16"
     
-    public-subnet-name  = "stg-vpc-web-sub"
-    public-subnet-cider = "10.0.1.0/24"
-    zone                = "KR-2"
+    public-subnet-name  = ["stg-vpc-web-sub1", "stg-vpc-web-sub2"]
+    public-subnet-cider = ["10.0.2.0/24", "10.0.3.0/24"]
+    public-zone                = ["KR-1", "KR-2"]
 
     nacl-name           = "stg-vpc-web-nacl"
     source-ip           = "27.122.140.10/32"
@@ -26,17 +26,15 @@ module "acg" {
 module "server" {
     source                  = "../complete-module/modules/server"
 
-    /* KR1 Zone 서버 생성할 수량 명기 */
-    cnt1                    = 1
+    /* KR1 Zone 서버 생성 정보 */
     server-name1            = "stg-vpc-kr1-web-server"
-    subnet1-id              = module.vpc.lb_prviate_subnet1
-    private-ip1             = ["10.0.4.10", "10.0.4.11"]    
+    subnet1-id              = module.vpc.lg_public_subnet1
+    private-ip1             = ["10.0.2.10", "10.0.2.11"]    
     
-    /* KR2 Zone 서버 생성할 수량 명기 */
-    cnt2                     = 1
+    /* KR2 Zone 서버 생성 정보 */
     server-name2            = "stg-vpc-kr2-web-server"
-    subnet2-id              = module.vpc.lb_prviate_subnet2
-    private-ip2             = ["10.0.5.10", "10.0.5.11"]    
+    subnet2-id              = module.vpc.lg_public_subnet2
+    private-ip2             = ["10.0.3.10", "10.0.3.11"]    
 
     /* 공통 */
     access_control_group_no = module.acg.acg_access_control_group_no
@@ -45,9 +43,13 @@ module "server" {
 module "lb" {
     source              = "../complete-module/modules/lb"
 
-    count               = 1
+    tg-name             = "stg-tg"
     vpc-id              = module.vpc.lg_vpc_id
-    svr-instance-id     = [module.server.az1_server[count.index].instance_no, module.server.az2_server[count.index].instance_no]
-    tg-name             = "lab1-tg"
+    svr-instance-no     = [
+        module.server.az1_server[0].instance_no, 
+        module.server.az1_server[1].instance_no,
+        module.server.az2_server[0].instance_no,
+        module.server.az2_server[1].instance_no,
+    ]
 }
 

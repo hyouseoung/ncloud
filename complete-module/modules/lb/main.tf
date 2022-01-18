@@ -28,5 +28,5 @@ resource "ncloud_lb_target_group" "lb_tg_group" {
 
 resource "ncloud_lb_target_group_attachment" "lb_tg_group_attach" {
     target_group_no = ncloud_lb_target_group.lb_tg_group.target_group_no
-    target_no_list  = var.svr-instance-id
+    target_no_list  = var.svr-instance-no
 }

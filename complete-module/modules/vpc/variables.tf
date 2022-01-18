@@ -12,15 +12,15 @@ variable "vpc-cider" {
 }
 variable "public-subnet-name" {
     description = "Set Public Subnet name"
-    type    = string
+    type    = list(string)
 }
 variable "public-subnet-cider" {
     description = "Set Public Subnet CIDR"
-    type    = string
+    type    = list(string)
 }
-variable "zone" {
+variable "public-zone" {
     description = "Set Availaibility Zone"
-    type    = string
+    type    = list(string)
 }
 variable "nacl-name" {
     description = "Set NACL Name"
