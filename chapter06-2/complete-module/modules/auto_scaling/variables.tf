@@ -14,7 +14,7 @@ variable "access-control-group-no" {
     description = "Return acg after acg module create acg"
     type        = string
 }
-variable "depends-on-lb-tg-list" {
+variable "lb-tg-list" {
     description = "Return Group number list of Load Balancer after lb module create lb"
     type        = string
 }

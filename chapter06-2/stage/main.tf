@@ -59,6 +59,6 @@ module "auto_scaling" {
     subnet-no               = module.vpc.lg_public_subnet2
     login-key               = module.server.login_key
     access-control-group-no = module.acg.acg_access_control_group_no
-    depends-on-lb-tg-list   = module.lb.lb_tg_no
+    lb-tg-list              = module.lb.lb_tg_no
 }
 
